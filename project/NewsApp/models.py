@@ -49,6 +49,8 @@ class Post(models.Model):
         self.rating -= 1
         self.save()
 
+    def preview(self):
+        return self.text[0:123] + '...'
 
 class PostCategory(models.Model):
     postThrough = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -69,6 +71,3 @@ class Comment(models.Model):
     def dislike(self):
         self.rating -= 1
         self.save()
-
-    def preview(self):
-        return self.text[0:123] + '...'
