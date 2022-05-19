@@ -110,7 +110,7 @@
 >>> p
 <QuerySet [<Post: Post object (3)>]>
 >>> message = ''
->>> for i in p:                                                                                                                                              
+>>> for i in p:                                                                                                                                              }")
 ...     message += (f"\nДата: {i.dateCreation}, Пользователь: {i.author.authorUser.username}, Рейтинг: {i.rating}, Заголовок: {i.title}, Превью: {i.preview()}")
 ... 
 >>> print(message) 
@@ -120,9 +120,9 @@
 >>> c = Comment.objects.filter(commentPost=p) 
 >>> c
 <QuerySet [<Comment: Comment object (1)>, <Comment: Comment object (2)>]>
->>> message = ''                                                                                                                                             
->>> for i in c:                                                                                                                                              
-...     message += (f"\nДата: {i.dateCreation}, Пользователь: {i.commentUser.username}, Рейтинг: {i.rating}, Комментарий: {i.text}")                         
+>>> message = ''                                                                                                                                             }")
+>>> for i in c:                                                                                                                                              }")
+...     message += (f"\nДата: {i.dateCreation}, Пользователь: {i.commentUser.username}, Рейтинг: {i.rating}, Комментарий: {i.text}")                         }")
 ... 
 >>> print(message) 
 
