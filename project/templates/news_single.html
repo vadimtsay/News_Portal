@@ -1,0 +1,6 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+   <h2 align="left">{{ news_single.title }}, {{ news_single.dateCreation|date:'M d Y' }}</h2>
+   <h3 align="justify">{{ news_single.text }} </h3>
+{% endblock content %}
