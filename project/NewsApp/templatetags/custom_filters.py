@@ -10,5 +10,5 @@ def censor(value):
     dirty_words = ['хет-трик', 'новгород']
     for i in dirty_words:
         if i.find(value.lower()):
-            value = value.replace(i[1::], "*" * (len(i)-1))
+            value = value.replace(i[1:], "*" * (len(i)-1))
     return f'{value}'
