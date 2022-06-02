@@ -1,21 +1,15 @@
 {% extends 'flatpages/default.html' %}
-
+{% load custom_tags %}
 {% block title %}
 Новости
 {% endblock title %}
 
 {% block content %}
-   <h1>Новости ({{ news|length }})</h1>
+   <h1>Все публикации ({{ all_news }})</h1>
    <h3>{{ time_now|date:'M d Y' }}</h3>
-
-   {# Добавляем форму, которая объединяет набор полей, которые будут отправляться в запросе #}
-   <form action="" method="get">
-       {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}
-       {{ filterset.form.as_p }}
-       {# Добавим кнопку отправки данных формы #}
-       <input type="submit" value="Найти" />
-   </form>
-
+   <button onclick="window.location.href = './search';">Поиск</button>
+   <button onclick="window.location.href = './create';">Добавить новость</button>
+   <button onclick="window.location.href = '../article/create';">Добавить статью</button>
    <hr>
    {% if news %}
        <table>
@@ -30,11 +24,37 @@
                <td align="left"><a href="./{{ new.id }}">{{ new.title }}</a></td>
                <td>{{ new.dateCreation|date:'d M Y' }}</td>
                <td align="justify">{{ new.text|truncatewords:20 }}</td>
+               <td><button onclick="window.location.href = '../{% if new.categoryType == 'AR' %}article{% else %}news{% endif %}/{{ new.id }}/edit';">Редактировать</button></td>
+               <td><button onclick="window.location.href = '../{% if new.categoryType == 'AR' %}article{% else %}news{% endif %}/{{ new.id }}/delete';">Удалить</button></td>
            </tr>
            {% endfor %}
 
        </table>
    {% else %}
-       <h2>Новостей нет!</h2>
+       <h2>Публикаций нет!</h2>
    {% endif %}
+
+   {# Добавляем пагинацию на страницу #}
+
+   {# Информация о предыдущих страницах #}
+   {% if page_obj.has_previous %}
+       <a href="?{% url_replace page=1 %}">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {# Информация о текущей странице #}
+   {{ page_obj.number }}
+
+   {# Информация о следующих страницах #}
+   {% if page_obj.has_next %}
+       <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+
 {% endblock content %}

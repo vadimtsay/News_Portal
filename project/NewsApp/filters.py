@@ -1,4 +1,3 @@
-from django import forms
 from django.forms import DateInput
 from django_filters import FilterSet, DateFilter
 from .models import Post, Category, Author
@@ -18,6 +17,6 @@ class PostFilter(FilterSet):
         fields = {
             'title': ['icontains'],
             'author': ['exact'],
-            'categoryType': ['exact'],
+            'postCategory': ['exact'],
         }
 

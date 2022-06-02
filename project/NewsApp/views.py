@@ -6,6 +6,7 @@ from .models import Post
 from .filters import PostFilter
 from .forms import PostForm
 
+
 class NewsList(ListView):
     # Указываем модель, объекты которой мы будем выводить
     model = Post
@@ -19,23 +20,9 @@ class NewsList(ListView):
     context_object_name = 'news'
     paginate_by = 2
 
-    # Переопределяем функцию получения списка товаров
-    def get_queryset(self):
-        # Получаем обычный запрос
-        queryset = super().get_queryset()
-        # Используем наш класс фильтрации.
-        # self.request.GET содержит объект QueryDict, который мы рассматривали
-        # в этом юните ранее.
-        # Сохраняем нашу фильтрацию в объекте класса,
-        # чтобы потом добавить в контекст и использовать в шаблоне.
-        self.filterset = PostFilter(self.request.GET, queryset)
-        # Возвращаем из функции отфильтрованный список товаров
-        return self.filterset.qs
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Добавляем в контекст объект фильтрации.
-        context['filterset'] = self.filterset
+        context['all_news'] = len(Post.objects.all())
         return context
 
 
@@ -46,3 +33,51 @@ class NewsDetail(DetailView):
     template_name = 'news_single.html'
     # Название объекта, в котором будет выбранный пользователем продукт
     context_object_name = 'news_single'
+
+class Search(ListView):
+    model = Post
+    template_name = 'news_search.html'
+    context_object_name = 'news_search'
+
+    def get_queryset(self):
+        # Получаем обычный запрос
+        queryset = super().get_queryset()
+        self.filterset = PostFilter(self.request.GET, queryset)
+        return self.filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
+        return context
+
+
+# Добавляем новое представление для создания заметки.
+class PostCreate(CreateView):
+    # Указываем нашу разработанную форму
+    form_class = PostForm
+    # модель товаров
+    model = Post
+    # и новый шаблон, в котором используется форма.
+    template_name = 'post_create.html'
+
+    def form_valid(self, form):
+        current_url = self.request.path
+        post = form.save(commit=False)
+        if current_url.split('/')[1] == 'news':
+            post.categoryType = self.model.news
+        else:
+            post.categoryType = self.model.article
+        return super().form_valid(form)
+
+
+class PostUpdate(UpdateView):
+    form_class = PostForm
+    model = Post
+    template_name = 'post_create.html'
+
+
+# Представление удаляющее товар.
+class PostDelete(DeleteView):
+    model = Post
+    template_name = 'post_delete.html'
+    success_url = reverse_lazy('news_list')
