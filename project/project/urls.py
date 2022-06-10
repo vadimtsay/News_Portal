@@ -22,4 +22,5 @@ urlpatterns = [
     # Делаем так, чтобы все адреса из нашего приложения (NewsApp/urls.py)
     # подключались к главному приложению с префиксом products/.
     path('', include('NewsApp.urls')),
+    path('accounts/', include('allauth.urls')),
 ]

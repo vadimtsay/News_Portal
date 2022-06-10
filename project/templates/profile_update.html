@@ -1,0 +1,12 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block title %}Profile update{% endblock title %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Обновить профиль">
+</form>
+{% endblock content %}

@@ -4,7 +4,8 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
 from .filters import PostFilter
-from .forms import PostForm
+from .forms import PostForm, ProfileForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class NewsList(ListView):
@@ -73,7 +74,7 @@ class PostCreate(CreateView):
 class PostUpdate(UpdateView):
     form_class = PostForm
     model = Post
-    template_name = 'post_create.html'
+    template_name = 'post_update.html'
 
 
 # Представление удаляющее товар.
@@ -81,3 +82,12 @@ class PostDelete(DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('news_list')
+
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
+    form_class = ProfileForm
+    template_name = 'profile_update.html'
+    success_url = '/news/'
+
+    def get_object(self, **kwargs):
+        return self.request.user
+
