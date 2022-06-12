@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.urls import reverse
+from allauth.account.forms import SignupForm
+from django.contrib.auth.models import Group
 
 
 # Create your models here.
@@ -12,17 +14,16 @@ class Author(models.Model):
     def __str__(self):
         return f'{self.authorUser.username}'
 
-
     def update_rating(self):
-        postRat = self.post_set.aggregate(postRating=Sum('rating'))
-        pRat = 0
-        pRat += postRat.get('postRating')
+        postrat = self.post_set.aggregate(postRating=Sum('rating'))
+        prat = 0
+        prat += postrat.get('postRating')
 
-        commentRat = self.authorUser.comment_set.aggregate(commentRating=Sum('rating'))
-        cRat = 0
-        cRat += commentRat.get('commentRating')
+        commentrat = self.authorUser.comment_set.aggregate(commentRating=Sum('rating'))
+        crat = 0
+        crat += commentrat.get('commentRating')
 
-        self.ratingAuthor = pRat * 3 + cRat
+        self.ratingAuthor = prat * 3 + crat
         self.save()
 
 
@@ -31,7 +32,6 @@ class Category(models.Model):
 
     def __str__(self):
         return f'{self.name}'
-
 
 
 class Post(models.Model):
@@ -67,6 +67,7 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('news_detail', args=[str(self.id)])
 
+
 class PostCategory(models.Model):
     postThrough = models.ForeignKey(Post, on_delete=models.CASCADE)
     categoryThrough = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -86,3 +87,12 @@ class Comment(models.Model):
     def dislike(self):
         self.rating -= 1
         self.save()
+
+
+class BasicSignupForm(SignupForm):
+
+    def save(self, request):
+        user = super(BasicSignupForm, self).save(request)
+        basic_group = Group.objects.get(name='common')
+        basic_group.user_set.add(user)
+        return user

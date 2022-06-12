@@ -1,9 +1,13 @@
 from django.urls import reverse_lazy
+from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post
+from .models import Post, Author
 from .filters import PostFilter
-from .forms import PostForm
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from .forms import PostForm, ProfileForm
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
+from django.shortcuts import redirect
 
 
 class NewsList(ListView):
@@ -33,6 +37,7 @@ class NewsDetail(DetailView):
     # Название объекта, в котором будет выбранный пользователем продукт
     context_object_name = 'news_single'
 
+
 class Search(ListView):
     model = Post
     template_name = 'news_search.html'
@@ -52,7 +57,7 @@ class Search(ListView):
 
 # Добавляем новое представление для создания заметки.
 class PostCreate(PermissionRequiredMixin, CreateView):
-    permission_required = ('newsapp.add_post',)
+    permission_required = ('NewsApp.add_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_create.html'
@@ -60,15 +65,18 @@ class PostCreate(PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         current_url = self.request.path
         post = form.save(commit=False)
+        post.author = Author.objects.get(authorUser=self.request.user.id)
+        print(self.request.user.id)
+        print(post.author)
         if current_url.split('/')[1] == 'news':
             post.categoryType = self.model.news
         else:
             post.categoryType = self.model.article
-        return super().form_valid(form)
+        return super(PostCreate, self).form_valid(form)
 
 
 class PostUpdate(PermissionRequiredMixin, UpdateView):
-    permission_required = ('newsapp.change_post',)
+    permission_required = ('NewsApp.change_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_update.html'
@@ -80,15 +88,34 @@ class PostDelete(DeleteView):
     template_name = 'post_delete.html'
     success_url = reverse_lazy('news_list')
 
-# class ProfileUpdate(LoginRequiredMixin, UpdateView):
-#     form_class = ProfileForm
-#     template_name = 'profile_update.html'
-#     success_url = '/news/'
-#
-#     def get_object(self, **kwargs):
-#         return self.request.user
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['is_not_author'] = not self.request.user.groups.filter(name='authors').exists()
-#         return context
+
+@login_required
+def upgrade_me(request):
+    user = request.user
+    authors_group = Group.objects.get(name='authors')
+    if not Author.objects.filter(id=user.id):
+        Author.objects.create(authorUser=user)
+    if not request.user.groups.filter(name='authors').exists():
+        authors_group.user_set.add(user)
+    return redirect('../')
+
+
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
+    form_class = ProfileForm
+    template_name = 'profile_update.html'
+    success_url = '/news/'
+
+    def get_object(self, **kwargs):
+        return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_author'] = not self.request.user.groups.filter(name='authors').exists()
+        return context
+
+
+def index(request):
+    return render(
+        request,
+        'news.html'
+    )

@@ -18,16 +18,20 @@
    {% if news %}
        <table>
            <tr>
-               <td>Заголовок</td>
-               <td>Дата публикации</td>
-               <td>Превью</td>
+               <td width="20%">Заголовок</td>
+               <td width="10%">Дата публикации</td>
+               <td width="50%">Превью</td>
+               <td width="10%">Автор</td>
+               <td width="10%">Тип публикации</td>
            </tr>
 
            {% for new in news %}
            <tr>
-               <td align="left"><a href="{{ new.id }}">{{ new.title }}</a></td>
+               <td align="left"><a href="/news/{{ new.id }}">{{ new.title }}</a></td>
                <td>{{ new.dateCreation|date:'d M Y' }}</td>
                <td align="justify">{{ new.text|truncatewords:20 }}</td>
+               <td align="center"><font size="4" color="#fa8e47" face="arial">{{ new.author }}</font></td>
+               <td align="center"><font size="4" color="#fa8e47" face="arial">{{ new.get_categoryType_display }}</font></td>
                <td><button onclick="window.location.href = '../{% if new.categoryType == 'AR' %}article{% else %}news{% endif %}/{{ new.id }}/edit';">Редактировать</button></td>
                <td><button onclick="window.location.href = '../{% if new.categoryType == 'AR' %}article{% else %}news{% endif %}/{{ new.id }}/delete';">Удалить</button></td>
            </tr>
