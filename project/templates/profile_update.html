@@ -8,5 +8,11 @@
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Обновить профиль">
+    {% if is_not_author %}
+        <button> <a href="upgrade/"> Хочу стать автором</a> </button>
+    {% endif %}
+
+    <button><a href="{% url 'account_logout' %}">Выйти</a></button>
+
 </form>
 {% endblock content %}

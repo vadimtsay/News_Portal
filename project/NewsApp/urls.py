@@ -15,9 +15,9 @@ urlpatterns = [
    # pk — это первичный ключ товара, который будет выводиться у нас в шаблон
    # int — указывает на то, что принимаются только целочисленные значения
    path('news/<int:pk>', NewsDetail.as_view(), name='news_detail'),
-   path('news/create/', PostCreate.as_view(), name='post_create'),
+   path('news/create/', PostCreate.as_view(), name='news_create'),
    path('news/<int:pk>/edit/', PostUpdate.as_view(), name='post_update'),
-   path('article/create/', PostCreate.as_view(), name='post_create'),
+   path('article/create/', PostCreate.as_view(), name='article_create'),
    path('article/<int:pk>/edit/', PostUpdate.as_view(), name='post_update'),
    path('article/<int:pk>/delete/', PostDelete.as_view(), name='post_delete'),
    path('news/<int:pk>/delete/', PostDelete.as_view(), name='post_delete'),

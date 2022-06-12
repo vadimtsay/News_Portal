@@ -1,0 +1,8 @@
+    {% if user.is_authenticated %}
+        <div><font size="4" color="#fa8e47" face="arial">{{user.username}}</font></div>
+        <button><a href="{% url 'profile_update' %}">Профиль</a></button>
+
+    {% else %}
+        <div><font size="4" color="#fa8e47" face="arial">{{user.username|default:'Guest'}}</font></div>
+        <button><a href="{% url 'account_login' %}">Войти</a></button>
+    {% endif %}

@@ -21,13 +21,8 @@
                    <span class="navbar-toggler-icon"></span>
                </button>
            </div>
-                {% if not request.user.username %}
-            <button><a href="../accounts/login/">Войти</a></button>
-
-                  {% else %}
-            <div><font size="4" color="#fa8e47" face="arial">{{request.user.username}}</font></div>
-                <button><a href="../accounts/logout/">Выйти</a></button>
-                {% endif %}
+           {% block profile %}
+           {% endblock profile %}
         </nav>
         <!-- Page content-->
         <div class="container">
