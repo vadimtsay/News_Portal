@@ -103,7 +103,7 @@ def upgrade_me(request):
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
     form_class = ProfileForm
     template_name = 'profile_update.html'
-    success_url = '/news/'
+    success_url = '/'
 
     def get_object(self, **kwargs):
         return self.request.user
