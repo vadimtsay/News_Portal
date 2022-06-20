@@ -7,12 +7,35 @@
 <form method="POST">
     {% csrf_token %}
     {{ form }}
+    <br>
+    <h3>Управление подписками</h3>
+    <br>
+        {% for cat in category %}
+        <tr>
+                {% if cat.name in user_category %}
+                   <td align="left">
+                        {{ cat.name }}
+                       <button type="submit" formaction="subscribe/" name="id_cat" value="{{ cat.id }}">Отписаться</button>
+                    </td>
+                {% else %}
+                   <td align="left">
+                        {{ cat.name }}
+                       <button type="submit" formaction="subscribe/" name="id_cat" value="{{ cat.id }}">Подписаться</button>
+                    </td>
+                {% endif %}
+        </tr>
+    <br>
+        {% endfor %}
+    <br>
     <input type="submit" value="Обновить профиль">
     {% if is_not_author %}
         <button> <a href="upgrade/"> Хочу стать автором</a> </button>
     {% endif %}
-
+    <button><a href="/"> Вернуться </a> </button>
     <button><a href="{% url 'account_logout' %}">Выйти</a></button>
 
 </form>
 {% endblock content %}
+
+<!--{% block subscribe %}-->
+<!--{% endblock subscribe %}-->

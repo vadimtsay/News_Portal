@@ -1,0 +1,12 @@
+{% extends 'profile_update' %}
+
+{% block subscribes %}
+        {% for cat in categories %}
+        <tr>
+           <td>
+                {{ cat.name }}
+                <a href="{% url 'subscribe' cat.id %}"><u>Подписаться!</u></a>
+            </td>
+        </tr>
+        {% endfor %}
+{% endblock subscribes %}
