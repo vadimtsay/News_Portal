@@ -1,4 +1,5 @@
-from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, Author, Category, PostCategory, UserCategory
@@ -21,25 +22,20 @@ def mailing_list(sender, instance, *args, **kwargs):
         for u in users:
             send_mail(
                 subject=f"{instance.title}",
-                message=f"Здравствуй, {User.objects.get(pk=u['subscribers']).username}",
+                message=f"Здравствуй, {User.objects.get(pk=u['subscribers']).username}.\n Новая статья в твоём любимом разделе!\n"
+                        f"Текст статьи: {instance.text[:50]} ..."
+                        f"",
                 from_email='vadik_ts@mail.ru',
-                recipient_list=[{User.objects.get(pk=u['subscribers']).email}]
+                recipient_list=[User.objects.get(pk=u['subscribers']).email]
             )
-            return redirect('../')
 
 
 class NewsList(ListView):
-    # Указываем модель, объекты которой мы будем выводить
     model = Post
-    # Поле, которое будет использоваться для сортировки объектов
     ordering = 'dateCreation',
-    # Указываем имя шаблона, в котором будут все инструкции о том,
-    # как именно пользователю должны быть показаны наши объекты
     template_name = 'news.html'
-    # Это имя списка, в котором будут лежать все объекты.
-    # Его надо указать, чтобы обратиться к списку объектов в html-шаблоне.
     context_object_name = 'news'
-    paginate_by = 2
+    paginate_by = 7
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -48,11 +44,8 @@ class NewsList(ListView):
 
 
 class NewsDetail(DetailView):
-    # Модель всё та же, но мы хотим получать информацию по отдельному товару
     model = Post
-    # Используем другой шаблон — product.html
     template_name = 'news_single.html'
-    # Название объекта, в котором будет выбранный пользователем продукт
     context_object_name = 'news_single'
 
 
@@ -80,7 +73,7 @@ class PostCreate(PermissionRequiredMixin, CreateView):
     model = Post
     template_name = 'post_create.html'
 
-    #    success_url = reverse_lazy('news_list')
+    success_url = reverse_lazy('news_list')
 
     def form_valid(self, form):
         current_url = self.request.path
@@ -98,10 +91,12 @@ class PostUpdate(PermissionRequiredMixin, UpdateView):
     form_class = PostForm
     model = Post
     template_name = 'post_update.html'
+    success_url = '/'
 
 
 # Представление удаляющее товар.
-class PostDelete(DeleteView):
+class PostDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = ('NewsApp.delete_post',)
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('news_list')
@@ -111,11 +106,11 @@ class PostDelete(DeleteView):
 def upgrade_me(request):
     user = request.user
     authors_group = Group.objects.get(name='authors')
-    if not Author.objects.filter(id=user.id):
+    if not Author.objects.filter(id=user.id).exists():
         Author.objects.create(authorUser=user)
     if not request.user.groups.filter(name='authors').exists():
         authors_group.user_set.add(user)
-    return redirect('../')
+    return redirect('/profile')
 
 
 class ProfileUpdate(LoginRequiredMixin, UpdateView):

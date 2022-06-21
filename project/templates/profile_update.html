@@ -29,7 +29,7 @@
     <br>
     <input type="submit" value="Обновить профиль">
     {% if is_not_author %}
-        <button> <a href="upgrade/"> Хочу стать автором</a> </button>
+        <button> <a href="{% url 'upgrade' %}"> Хочу стать автором</a> </button>
     {% endif %}
     <button><a href="/"> Вернуться </a> </button>
     <button><a href="{% url 'account_logout' %}">Выйти</a></button>
