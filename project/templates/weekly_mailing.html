@@ -9,10 +9,10 @@
 <body>
 <h1 style="color:#0000ff">{% trans "Дайджест новостей за прошедшую неделю" %}!</h1>
 <table>
-    {% for new in news %}
+    {% for post, category in news.items %}
     <tr>
         <td>
-            <a href="http://127.0.0.1:8000{% url 'news_detail' new.id %}">{{ new.title }}</a>
+            <a href="http://127.0.0.1:8000{% url 'news_detail' post.id %}">Категория: {{ category }}. {{ post.title }} </a>
         </td>
     </tr>
     {% endfor %}

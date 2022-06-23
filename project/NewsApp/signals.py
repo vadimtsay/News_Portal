@@ -41,26 +41,23 @@ def weekly_mailing():
 
         # все возможные категории
         categories = Category.objects.all()
-        print(categories)
         # пробежимся по пользователям
         for user in User.objects.all():
             # создадим список категорий пользователя
             user_categories = []
-
-            user_posts = []
+            user_posts = {}
             # возьмём все возможные категории и пробежимся по ним
             for category in categories:
                 if category.subscribers.filter(id=user.id).exists():
                     user_categories.append(category.name)
                     for post in list_of_posts:
-                        if post.postCategory.filter(id=category.id).exists:
-                            user_posts.append(post)
-
-            html_content = render_to_string('weekly_mailing.html',
-                                            {'news': user_posts})
+                        if post.postCategory.filter(id=category.id).exists():
+                            user_posts[post] = category.name
 
             # формируем тело письма
             if len(user_categories):
+                html_content = render_to_string('weekly_mailing.html',
+                                                {'news': user_posts})
                 msg = EmailMultiAlternatives(
                     subject=f'Все новости за прошедшую неделю',
                     from_email=settings.DEFAULT_FROM_EMAIL,
