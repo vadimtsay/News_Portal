@@ -1,48 +1,12 @@
-from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Author, Category, PostCategory
+from .models import Post, Author, Category
 from .filters import PostFilter
 from .forms import PostForm, ProfileForm
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect
-from django.core.mail import send_mail
-from django.contrib.auth.models import User
-from django.dispatch import receiver
-from django.db.models.signals import m2m_changed
-from django.core.mail import EmailMultiAlternatives
-
-
-@receiver(m2m_changed, sender=PostCategory)
-def mailing_list(sender, instance, *args, **kwargs):
-    for cat_id in instance.postCategory.all():
-        users = Category.objects.filter(pk=cat_id.id).values("subscribers")
-        for u in users:
-            # send_mail(
-            #     subject=f"{instance.title}",
-            #     message=f"Здравствуй, {User.objects.get(pk=u['subscribers']).username}.\n Новая статья в твоём любимом разделе!\n"
-            #             f"Текст статьи: {instance.text[:50]} ..."
-            #             f"",
-            #     from_email='vadik_ts@mail.ru',
-            #     recipient_list=[User.objects.get(pk=u['subscribers']).email]
-            # )
-            msg = EmailMultiAlternatives(
-                subject=instance.title,
-                body=instance.text[:50],
-                from_email='vadik_ts@mail.ru',
-                to=[User.objects.get(pk=u['subscribers']).email],
-            )
-            html_content = render_to_string(
-                'subscribe_letter.html',
-                {
-                    'new': instance,
-                    'recipient': User.objects.get(pk=u['subscribers'])
-                }
-            )
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
 
 
 class NewsList(ListView):
@@ -143,7 +107,7 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
         context['category'] = Category.objects.all()
         user_cat = list()
         for u in Category.objects.all():
-            if (u.subscribers.filter(id=user.id).exists()):
+            if u.subscribers.filter(id=user.id).exists():
                 user_cat.append(u.name)
         context['user_category'] = user_cat
         return context

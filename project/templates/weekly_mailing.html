@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load i18n %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 style="color:#0000ff">{% trans "Дайджест новостей за прошедшую неделю" %}!</h1>
+<table>
+    {% for new in news %}
+    <tr>
+        <td>
+            <a href="http://127.0.0.1:8000{% url 'news_detail' new.id %}">{{ new.title }}</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
