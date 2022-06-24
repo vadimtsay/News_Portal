@@ -7,7 +7,7 @@
 </head>
 <body>
     <h2>Приветствую, {{ recipient.username }}! Новая статья в твоём любимом разделе! </h2>
-    <p> Превью статьи: {{ new.text }} </p>
+    <p> Превью статьи: {{ new.text|truncatechars:50 }}... </p>
 <!--    <p><a href="http://127.0.0.1:8000/news/{{ new.id }}">Посмотреть полностью</a></p>-->
     <p><a href="http://127.0.0.1:8000{% url 'news_detail' new.id %}">Посмотреть полностью</a></p>
 </body>
