@@ -31,7 +31,8 @@ def mailing_list(sender, instance, *args, **kwargs):
 
 
 def weekly_mailing():
-    if date.today().weekday() == 4:  # если сегодня понедельник
+    print('Еженедельная рассылка ещё раз')
+    if date.today().weekday() == 0:  # если сегодня понедельник
         start = date.today() - timedelta(7)  # вычтем от сегодняшнего дня 7 дней. Это будет началом диапазона выборки
         # дат
         finish = date.today()  # сегодняшний день - конец диапазона выборки дат

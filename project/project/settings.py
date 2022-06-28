@@ -136,7 +136,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Yekaterinburg'
 
 USE_I18N = True
 
@@ -175,3 +175,11 @@ EMAIL_PORT = 465  # порт smtp сервера тоже одинаковый
 EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
 EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
 EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
+
+CELERY_BROKER_URL = 'redis://default:FZUMKVhfoRSiMWIrKXT5ywhPhxeYnjhX@redis-11122.c283.us-east-1-4.ec2.cloud.redislabs.com:11122/0'
+CELERY_RESULT_BACKEND = 'redis://default:FZUMKVhfoRSiMWIrKXT5ywhPhxeYnjhX@redis-11122.c283.us-east-1-4.ec2.cloud.redislabs.com:11122/0'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_ENABLE_UTC = False
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
