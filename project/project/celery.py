@@ -13,7 +13,7 @@ app.conf.beat_schedule = {
 
     'action_every_monday_8am': {
         'task': 'NewsApp.tasks.weekly_mailing_task',
-        'schedule': 60,
-#        'schedule': crontab(hour=8, minute=0, day_of_week='monday'),
+#        'schedule': 60,
+        'schedule': crontab(hour=8, minute=0, day_of_week='monday'),
     },
 }
