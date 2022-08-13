@@ -1,0 +1,50 @@
+2022-08-13 20:33:14,913 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:33:55,285 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:42:20,118 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:43:22,841 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:44:30,539 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:46:35,471 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:46:35,495 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:47:01,312 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:47:01,328 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:47:32,415 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:49:03,045 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:52:45,659 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:53:25,019 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:54:24,038 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:55:08,420 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 20:55:40,452 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:00:15,367 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:00:22,340 ERROR - Internal Server Error: /profile/subscribe/ - C:\Python projects\News_Portal\venv\lib\site-packages\django\utils\log.py - (<class 'TypeError'>, TypeError("unsupported operand type(s) for +: 'SimpleLazyObject' and 'str'"), <traceback object at 0x000001F192295980>)
+Traceback (most recent call last):
+  File "C:\Python projects\News_Portal\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Python projects\News_Portal\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python projects\News_Portal\project\NewsApp\views.py", line 134, in subscribe_user
+    logger_debug.info(user +" " + category)
+TypeError: unsupported operand type(s) for +: 'SimpleLazyObject' and 'str'
+2022-08-13 21:00:22,342 ERROR - "POST /profile/subscribe/ HTTP/1.1" 500 76229 - C:\Python projects\News_Portal\venv\lib\site-packages\django\core\servers\basehttp.py - None
+2022-08-13 21:00:54,502 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:00:59,694 ERROR - Internal Server Error: /profile/subscribe/ - C:\Python projects\News_Portal\venv\lib\site-packages\django\utils\log.py - (<class 'TypeError'>, TypeError("unsupported operand type(s) for +: 'SimpleLazyObject' and 'str'"), <traceback object at 0x00000250DEEA2540>)
+Traceback (most recent call last):
+  File "C:\Python projects\News_Portal\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Python projects\News_Portal\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python projects\News_Portal\project\NewsApp\views.py", line 134, in subscribe_user
+    logger_debug.info(user + " " + category)
+TypeError: unsupported operand type(s) for +: 'SimpleLazyObject' and 'str'
+2022-08-13 21:00:59,696 ERROR - "POST /profile/subscribe/ HTTP/1.1" 500 76231 - C:\Python projects\News_Portal\venv\lib\site-packages\django\core\servers\basehttp.py - None
+2022-08-13 21:01:06,323 ERROR - Internal Server Error: /profile/subscribe/ - C:\Python projects\News_Portal\venv\lib\site-packages\django\utils\log.py - (<class 'TypeError'>, TypeError("unsupported operand type(s) for +: 'SimpleLazyObject' and 'str'"), <traceback object at 0x00000250DEE104C0>)
+Traceback (most recent call last):
+  File "C:\Python projects\News_Portal\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Python projects\News_Portal\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python projects\News_Portal\project\NewsApp\views.py", line 134, in subscribe_user
+    logger_debug.info(user + " " + category)
+TypeError: unsupported operand type(s) for +: 'SimpleLazyObject' and 'str'
+2022-08-13 21:01:06,324 ERROR - "POST /profile/subscribe/ HTTP/1.1" 500 76231 - C:\Python projects\News_Portal\venv\lib\site-packages\django\core\servers\basehttp.py - None
+2022-08-13 21:02:35,743 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:03:00,911 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
