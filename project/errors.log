@@ -48,3 +48,14 @@ TypeError: unsupported operand type(s) for +: 'SimpleLazyObject' and 'str'
 2022-08-13 21:01:06,324 ERROR - "POST /profile/subscribe/ HTTP/1.1" 500 76231 - C:\Python projects\News_Portal\venv\lib\site-packages\django\core\servers\basehttp.py - None
 2022-08-13 21:02:35,743 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
 2022-08-13 21:03:00,911 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:18:30,292 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:19:17,599 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:22:02,238 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:22:57,041 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:26:59,411 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:27:42,996 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:28:24,576 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:28:54,664 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:29:36,898 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:30:59,404 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None
+2022-08-13 21:31:38,513 ERROR - Hello! I'm error in your app. Enjoy:) - C:\Python projects\News_Portal\project\NewsApp\urls.py - None

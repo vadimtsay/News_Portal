@@ -7,6 +7,17 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect
+import logging
+
+
+logger_debug = logging.getLogger('console_debug')
+logger_warning = logging.getLogger('console_warning')
+logger_error = logging.getLogger('console_error_critical')
+logger_django_request = logging.getLogger('django.request')
+logger_django_server = logging.getLogger('django.server')
+logger_django_db_backends = logging.getLogger('django.db_backends')
+logger_django_template = logging.getLogger('django.template')
+logger_django_security = logging.getLogger('django.security')
 
 
 class NewsList(ListView):
@@ -120,6 +131,8 @@ def subscribe_user(request):
     print(category)
     if category.subscribers.filter(id=user.id).exists():
         category.subscribers.remove(user)
+        logger_debug.error(f'Пользователь {user} отписался от категории {category}')
     else:
         category.subscribers.add(user)
+        logger_debug.error(f'Пользователь {user} подписался на категорию {category}')
     return redirect('/profile')
